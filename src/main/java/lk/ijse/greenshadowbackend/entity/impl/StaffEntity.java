@@ -31,4 +31,6 @@ public class StaffEntity {
     private List<StaffFieldEntity> staffFieldDetails;
     @OneToMany(mappedBy ="staff", cascade = CascadeType.ALL, fetch = FetchType.LAZY )
     private List<VehicleEntity> vehicleEntityList;
+    @OneToMany(mappedBy ="staff", cascade = CascadeType.ALL, fetch = FetchType.LAZY )
+    private List<StaffLogDetailsEntity>staffLogDetails ;
 }
