@@ -23,5 +23,7 @@ public class FieldEntity implements SuperEntity {
     private List<StaffFieldEntity> staffFieldDetails;
     @OneToMany(mappedBy ="field", cascade = CascadeType.ALL, fetch = FetchType.LAZY )
     private List<FieldEquipmentDetails> fieldEquipmentDetails;
+    @OneToMany(mappedBy ="field", cascade = CascadeType.ALL, fetch = FetchType.LAZY )
+    private List<FieldLogDetailsEntity> fieldLogDetailsEntities;
 
 }

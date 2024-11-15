@@ -14,9 +14,10 @@ public class LogEntity {
     private String logDate;
     private String logDetails;
     private String observedImage;
-    private String relevantFields;
     @OneToMany(mappedBy ="log", cascade = CascadeType.ALL, fetch = FetchType.LAZY )
     private List<StaffLogDetailsEntity> staffLogDetails;
     @OneToMany(mappedBy ="log", cascade = CascadeType.ALL, fetch = FetchType.LAZY )
     private List<CropLogDetailsEntity> cropLogDetailsEntities;
+    @OneToMany(mappedBy ="log", cascade = CascadeType.ALL, fetch = FetchType.LAZY )
+    private List<FieldLogDetailsEntity>fieldLogDetailsEntities;
 }
