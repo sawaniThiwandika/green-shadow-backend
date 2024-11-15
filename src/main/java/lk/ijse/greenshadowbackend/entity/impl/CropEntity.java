@@ -28,6 +28,8 @@ public class CropEntity implements SuperEntity {
     private List<CropFieldDetails> cropFieldDetails;
     @OneToMany(mappedBy ="crop", cascade = CascadeType.ALL, fetch = FetchType.LAZY )
     private List<StaffCropDetails> cropStaffDetails;
+    @OneToMany(mappedBy ="crop", cascade = CascadeType.ALL, fetch = FetchType.LAZY )
+    private List<CropLogDetailsEntity>cropLogDetailsEntities;
 
 
 }

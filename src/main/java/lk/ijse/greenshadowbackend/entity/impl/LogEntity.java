@@ -15,8 +15,8 @@ public class LogEntity {
     private String logDetails;
     private String observedImage;
     private String relevantFields;
-    private String relevantCrops;
-    private String relevantStaff;
     @OneToMany(mappedBy ="log", cascade = CascadeType.ALL, fetch = FetchType.LAZY )
     private List<StaffLogDetailsEntity> staffLogDetails;
+    @OneToMany(mappedBy ="log", cascade = CascadeType.ALL, fetch = FetchType.LAZY )
+    private List<CropLogDetailsEntity> cropLogDetailsEntities;
 }
