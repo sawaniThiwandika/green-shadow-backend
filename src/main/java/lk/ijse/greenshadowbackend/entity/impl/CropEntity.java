@@ -1,12 +1,10 @@
 package lk.ijse.greenshadowbackend.entity.impl;
 
-import com.fasterxml.jackson.annotation.JsonTypeId;
 import jakarta.persistence.*;
 import lk.ijse.greenshadowbackend.entity.SuperEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 import java.util.List;
 
@@ -25,9 +23,9 @@ public class CropEntity implements SuperEntity {
     private String season;
     private String image;
     @OneToMany(mappedBy ="crop", cascade = CascadeType.ALL, fetch = FetchType.LAZY )
-    private List<CropFieldDetails> cropFieldDetails;
+    private List<CropFieldDetailsEntity> cropFieldDetails;
     @OneToMany(mappedBy ="crop", cascade = CascadeType.ALL, fetch = FetchType.LAZY )
-    private List<StaffCropDetails> cropStaffDetails;
+    private List<StaffCropDetailsEntity> cropStaffDetails;
     @OneToMany(mappedBy ="crop", cascade = CascadeType.ALL, fetch = FetchType.LAZY )
     private List<CropLogDetailsEntity>cropLogDetailsEntities;
 

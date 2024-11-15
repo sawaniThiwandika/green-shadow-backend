@@ -15,8 +15,8 @@ public class EquipmentEntity {
     private String equipmentType;
     private String equipmentStatus;
     @OneToMany(mappedBy ="equipment", cascade = CascadeType.ALL, fetch = FetchType.LAZY )
-    private List<FieldEquipmentDetails> fieldEquipmentDetails;
+    private List<FieldEquipmentDetailsEntity> fieldEquipmentDetails;
     @OneToMany(mappedBy ="equipment", cascade = CascadeType.ALL, fetch = FetchType.LAZY )
-    private List<StaffEquipmentDetails> staffEquipmentDetails;
+    private List<StaffEquipmentDetailsEntity> staffEquipmentDetails;
 
 }

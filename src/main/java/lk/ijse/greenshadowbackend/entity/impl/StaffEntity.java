@@ -26,9 +26,9 @@ public class StaffEntity {
     private String addressLine5;
     private String role;
     @OneToMany(mappedBy ="staff", cascade = CascadeType.ALL, fetch = FetchType.LAZY )
-    private List<StaffCropDetails> cropStaffDetails;
+    private List<StaffCropDetailsEntity> cropStaffDetails;
     @OneToMany(mappedBy ="staff", cascade = CascadeType.ALL, fetch = FetchType.LAZY )
-    private List<StaffFieldEntity> staffFieldDetails;
+    private List<StaffFieldEntityDetailsEntity> staffFieldDetails;
     @OneToMany(mappedBy ="staff", cascade = CascadeType.ALL, fetch = FetchType.LAZY )
     private List<VehicleEntity> vehicleEntityList;
     @OneToMany(mappedBy ="staff", cascade = CascadeType.ALL, fetch = FetchType.LAZY )

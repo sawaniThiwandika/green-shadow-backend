@@ -18,11 +18,11 @@ public class FieldEntity implements SuperEntity {
     private String fieldImage1;
     private String fieldImage2;
     @OneToMany(mappedBy ="field", cascade = CascadeType.ALL, fetch = FetchType.LAZY )
-    private List<CropFieldDetails> cropFieldDetails;
+    private List<CropFieldDetailsEntity> cropFieldDetails;
     @OneToMany(mappedBy ="field", cascade = CascadeType.ALL, fetch = FetchType.LAZY )
-    private List<StaffFieldEntity> staffFieldDetails;
+    private List<StaffFieldEntityDetailsEntity> staffFieldDetails;
     @OneToMany(mappedBy ="field", cascade = CascadeType.ALL, fetch = FetchType.LAZY )
-    private List<FieldEquipmentDetails> fieldEquipmentDetails;
+    private List<FieldEquipmentDetailsEntity> fieldEquipmentDetails;
     @OneToMany(mappedBy ="field", cascade = CascadeType.ALL, fetch = FetchType.LAZY )
     private List<FieldLogDetailsEntity> fieldLogDetailsEntities;
 

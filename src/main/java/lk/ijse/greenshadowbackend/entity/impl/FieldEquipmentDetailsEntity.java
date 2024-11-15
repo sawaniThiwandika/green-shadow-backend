@@ -3,11 +3,10 @@ package lk.ijse.greenshadowbackend.entity.impl;
 import jakarta.persistence.*;
 import lombok.Data;
 
-@Entity
 @Data
-@Table(name="field_staff_details")
-
-public class StaffFieldEntity {
+@Entity
+@Table(name = "field_equipment_details")
+public class FieldEquipmentDetailsEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -15,7 +14,6 @@ public class StaffFieldEntity {
     @JoinColumn(name = "fieldId", nullable = false)
     private FieldEntity field;
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "staffId", nullable = false)
-    private StaffEntity staff;
-
+    @JoinColumn(name = "equipmentId", nullable = false)
+    private EquipmentEntity equipment;
 }

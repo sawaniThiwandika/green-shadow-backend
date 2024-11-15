@@ -1,19 +1,20 @@
 package lk.ijse.greenshadowbackend.entity.impl;
 
 import jakarta.persistence.*;
+import lk.ijse.greenshadowbackend.entity.SuperEntity;
 import lombok.Data;
 
-@Entity
 @Data
-@Table(name="crop_staff_details")
-public class StaffCropDetails {
+@Entity
+@Table(name="crop_field_details")
+public class CropFieldDetailsEntity implements SuperEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "cropId", nullable = false)
+    @JoinColumn(name = "cropCode", nullable = false)
     private CropEntity crop;
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "staffId", nullable = false)
-    private StaffEntity staff;
+    @JoinColumn(name = "fieldId", nullable = false)
+    private FieldEntity field;
 }
