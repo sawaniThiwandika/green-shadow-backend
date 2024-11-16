@@ -1,5 +1,6 @@
 package lk.ijse.greenshadowbackend.dto.impl;
 
+import lk.ijse.greenshadowbackend.dto.SuperDto;
 import lk.ijse.greenshadowbackend.entity.impl.CropFieldDetailsEntity;
 import lk.ijse.greenshadowbackend.entity.impl.FieldEquipmentDetailsEntity;
 import lk.ijse.greenshadowbackend.entity.impl.FieldLogDetailsEntity;
@@ -8,7 +9,7 @@ import lombok.Data;
 
 import java.util.List;
 @Data
-public class FieldDto {
+public class FieldDto  implements SuperDto {
     private String fieldCode;
     private String fieldName;
     private String fieldLocation;
