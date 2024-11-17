@@ -10,4 +10,7 @@ public interface StaffService {
     public void deleteStaff(String id);
     public StaffDto getStaff(String id);
     public List<StaffDto> getStaffList();
+
+    boolean existsById(String id);
+
 }

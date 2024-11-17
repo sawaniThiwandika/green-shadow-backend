@@ -59,6 +59,19 @@ public class Mapping {
         System.out.println(list.size());
         return modelMapper.map(list,new TypeToken<List<StaffDto>>(){}.getType());
     }
+    public List<StaffEntity> toStaffEntityList(List<StaffDto> list){
+        System.out.println(list.size());
+        return modelMapper.map(list,new TypeToken<List<StaffEntity>>(){}.getType());
+    }
+    public List<StaffFieldEntityDetailsEntity> toStaffFieldEntityList(List<StaffFieldDetailsDto> list){
+        return modelMapper.map(list,new TypeToken<List<StaffFieldEntityDetailsEntity>>(){}.getType());
+    }
+    public List<StaffCropDetailsEntity> toStaffCropEntityList(List<StaffCropDetailsDto> list){
+        return modelMapper.map(list,new TypeToken<List<StaffCropDetailsEntity>>(){}.getType());
+    }
+    public List<StaffLogDetailsEntity> toStaffLogEntityList(List<StaffLogDetailsDto> list){
+        return modelMapper.map(list,new TypeToken<List<StaffLogDetailsEntity>>(){}.getType());
+    }
 
     public List<CropDto> toCropDtoList(List<CropEntity> list){
         return modelMapper.map(list,new TypeToken<List<CropDto>>(){}.getType());
@@ -69,8 +82,14 @@ public class Mapping {
     public List<EquipmentDto> toEquipmentDtoList(List<EquipmentEntity> list){
         return modelMapper.map(list,new TypeToken<List<EquipmentDto>>(){}.getType());
     }
-    public List<VehicleDto> toLogDtoList(List<LogEntity> list){
+    public List<LogDto> toLogDtoList(List<LogEntity> list){
         return modelMapper.map(list,new TypeToken<List<LogDto>>(){}.getType());
+    }
+    public List<VehicleDto> toVehicleDtoList(List<VehicleEntity> list){
+        return modelMapper.map(list,new TypeToken<List<VehicleDto>>(){}.getType());
+    }
+    public List<VehicleEntity> toVehicleEntityList(List<VehicleDto> list){
+        return modelMapper.map(list,new TypeToken<List<VehicleEntity>>(){}.getType());
     }
 
 }

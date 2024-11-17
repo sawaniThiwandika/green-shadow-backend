@@ -9,7 +9,9 @@ import lk.ijse.greenshadowbackend.util.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Transactional
@@ -34,7 +36,46 @@ public class StaffServiceImpl implements StaffService {
 
     @Override
     public void updateStaff(String staffId, StaffDto dto) {
+        // Fetch the staff entity to update
+        Optional<StaffEntity> optionalStaff = staffDao.findById(staffId);
+        if (optionalStaff.isEmpty()) {
+            throw new RuntimeException("Staff with ID " + staffId + " not found");
+        }
 
+        StaffEntity staffEntity = optionalStaff.get();
+
+        staffEntity.setFirstName(dto.getFirstName());
+        staffEntity.setLastName(dto.getLastName());
+        staffEntity.setContactNo(dto.getContactNo());
+        staffEntity.setEmail(dto.getEmail());
+        staffEntity.setAddressLine1(dto.getAddressLine1());
+        staffEntity.setAddressLine2(dto.getAddressLine2());
+        staffEntity.setAddressLine3(dto.getAddressLine3());
+        staffEntity.setAddressLine4(dto.getAddressLine4());
+        staffEntity.setAddressLine5(dto.getAddressLine5());
+        staffEntity.setJoinedDate(dto.getJoinedDate());
+        staffEntity.setDob(dto.getDob());
+        staffEntity.setDesignation(dto.getDesignation());
+        staffEntity.setRole(dto.getRole());
+
+
+        if (dto.getStaffFieldDetails() != null) {
+            staffEntity.setStaffFieldDetails(mapping.toStaffFieldEntityList(dto.getStaffFieldDetails()));
+        }
+
+        if (dto.getCropStaffDetails() != null) {
+            staffEntity.setCropStaffDetails(mapping.toStaffCropEntityList(dto.getCropStaffDetails()));
+        }
+
+        if (dto.getStaffLogDetails() != null) {
+            staffEntity.setStaffLogDetails(mapping.toStaffLogEntityList(dto.getStaffLogDetails()));
+        }
+
+        if (dto.getVehicleDtoList() != null) {
+            staffEntity.setVehicleEntityList(mapping.toVehicleEntityList(dto.getVehicleDtoList()));
+        }
+
+        staffDao.save(staffEntity);
     }
 
     @Override
@@ -58,4 +99,10 @@ public class StaffServiceImpl implements StaffService {
                 .collect(Collectors.toList());
 
     }
+
+    @Override
+    public boolean existsById(String id) {
+        return staffDao.existsById(id);
+    }
+
 }

@@ -20,22 +20,22 @@ public class StaffController {
     StaffService staffService;
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> saveStaff(@RequestBody() StaffDto staffDto) {
+    public ResponseEntity<Object> saveOrUpdateStaff(@RequestBody StaffDto staffDto) {
         try {
-            staffDto.setId(AppUtil.generateStaffId());
-            staffDto.setCropStaffDetails(new ArrayList<>());
-            staffDto.setStaffFieldDetails(new ArrayList<>());
-            staffDto.setStaffLogDetails(new ArrayList<>());
-            staffDto.setVehicleDtoList(new ArrayList<>());
+                staffDto.setId(AppUtil.generateStaffId());
+                staffDto.setCropStaffDetails(new ArrayList<>());
+                staffDto.setStaffFieldDetails(new ArrayList<>());
+                staffDto.setStaffLogDetails(new ArrayList<>());
+                staffDto.setVehicleDtoList(new ArrayList<>());
 
-            staffService.saveStaff(staffDto);
-            return new ResponseEntity<>(HttpStatus.CREATED);
+                staffService.saveStaff(staffDto);
+                return new ResponseEntity<>("Staff created successfully", HttpStatus.CREATED);
+
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
-
-
     }
+
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<StaffDto> getItemList() {
         List<StaffDto> staffList = staffService.getStaffList();
@@ -43,5 +43,12 @@ public class StaffController {
 
 
     }
+    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public void updateStaff(@RequestBody() StaffDto staffDto){
+        System.out.println(staffDto.getId());
+        staffService.updateStaff(staffDto.getId(),staffDto);
+
+    }
+
 
 }
