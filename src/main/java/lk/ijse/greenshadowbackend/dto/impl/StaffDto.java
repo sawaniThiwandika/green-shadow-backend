@@ -5,9 +5,13 @@ import lk.ijse.greenshadowbackend.entity.impl.StaffCropDetailsEntity;
 import lk.ijse.greenshadowbackend.entity.impl.StaffFieldEntityDetailsEntity;
 import lk.ijse.greenshadowbackend.entity.impl.StaffLogDetailsEntity;
 import lk.ijse.greenshadowbackend.entity.impl.VehicleEntity;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
+@NoArgsConstructor
+@AllArgsConstructor
 @Data
 public class StaffDto implements SuperDto {
     private String id;

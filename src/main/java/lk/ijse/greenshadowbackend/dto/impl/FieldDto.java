@@ -5,9 +5,13 @@ import lk.ijse.greenshadowbackend.entity.impl.CropFieldDetailsEntity;
 import lk.ijse.greenshadowbackend.entity.impl.FieldEquipmentDetailsEntity;
 import lk.ijse.greenshadowbackend.entity.impl.FieldLogDetailsEntity;
 import lk.ijse.greenshadowbackend.entity.impl.StaffFieldEntityDetailsEntity;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
+@NoArgsConstructor
+@AllArgsConstructor
 @Data
 public class FieldDto  implements SuperDto {
     private String fieldCode;
