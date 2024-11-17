@@ -80,7 +80,13 @@ public class StaffServiceImpl implements StaffService {
 
     @Override
     public void deleteStaff(String id) {
+        Optional<StaffEntity> existedUser = staffDao.findById(id);
 
+        if (!existedUser.isPresent()) {
+            throw new  RuntimeException("Staff member with id " + id + " not found");
+        }
+
+        staffDao.deleteById(id);
     }
 
     @Override

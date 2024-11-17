@@ -49,6 +49,23 @@ public class StaffController {
         staffService.updateStaff(staffDto.getId(),staffDto);
 
     }
+    @DeleteMapping(value = "/{staffId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> deleteCustomer(@PathVariable("staffId") String staffId){
+        if (staffId == null || staffId.trim().isEmpty()) {
+            return ResponseEntity.badRequest().body("Customer ID is missing");
+        }
+
+        try {
+            staffService.deleteStaff(staffId);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+
+    }
 
 
 }
