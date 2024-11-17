@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/staff")
@@ -32,6 +33,13 @@ public class StaffController {
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+
+
+    }
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<StaffDto> getItemList() {
+        List<StaffDto> staffList = staffService.getStaffList();
+        return staffList;
 
 
     }

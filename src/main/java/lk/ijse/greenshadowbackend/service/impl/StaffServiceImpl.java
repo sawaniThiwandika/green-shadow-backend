@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
 @Transactional
 @Service
 public class StaffServiceImpl implements StaffService {
@@ -47,6 +49,13 @@ public class StaffServiceImpl implements StaffService {
 
     @Override
     public List<StaffDto> getStaffList() {
-        return null;
+        List<StaffEntity> allCustomers =staffDao.findAll();
+        if(allCustomers.isEmpty()){
+            new RuntimeException("Failed to load");
+        }
+        return allCustomers.stream()
+                .map(mapping::toStaffDto)
+                .collect(Collectors.toList());
+
     }
 }
