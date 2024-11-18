@@ -70,7 +70,7 @@ public class VehicleController {
     @DeleteMapping(value = "/{vehicleCode}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> deleteVehicle(@PathVariable("vehicleCode") String vehicleCode) {
         if (vehicleCode == null || vehicleCode.trim().isEmpty()) {
-            return ResponseEntity.badRequest().body("Customer ID is missing");
+            return ResponseEntity.badRequest().body("vehicle ID is missing");
         }
 
         try {
