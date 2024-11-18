@@ -15,7 +15,9 @@ public class FieldEntity implements SuperEntity {
     private String fieldName;
     private String fieldLocation;
     private String fieldSize;
+    @Column(columnDefinition = "LONGTEXT")
     private String fieldImage1;
+    @Column(columnDefinition = "LONGTEXT")
     private String fieldImage2;
     @OneToMany(mappedBy ="field", cascade = CascadeType.ALL, fetch = FetchType.LAZY )
     private List<CropFieldDetailsEntity> cropFieldDetails;
