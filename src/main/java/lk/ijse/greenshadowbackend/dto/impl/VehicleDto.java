@@ -17,5 +17,5 @@ public class VehicleDto implements SuperDto {
     private String vehicleFuelType;
     private String vehicleStatus;
     private String vehicleRemarks;
-    private String staffId;
+    private StaffDto staffId;
 }

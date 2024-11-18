@@ -91,7 +91,16 @@ public class StaffServiceImpl implements StaffService {
 
     @Override
     public StaffDto getStaff(String id) {
-        return null;
+        Optional<StaffEntity> existedUser = staffDao.findById(id);
+
+        if (!existedUser.isPresent()) {
+            throw new  RuntimeException("Staff member with id " + id + " not found");
+        }
+        else {
+            return mapping.toStaffDto(existedUser.get());
+        }
+
+
     }
 
     @Override
