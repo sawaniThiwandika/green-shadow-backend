@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -38,8 +39,24 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     @Override
-    public void updateVehicle(String VehicleId, VehicleDto dto) {
+    public void updateVehicle(String vehicleId, VehicleDto dto) {
+        // Fetch the staff entity to update
+        Optional<VehicleEntity> optionalVehicle = vehicleDao.findById(vehicleId);
+        if (optionalVehicle.isEmpty()) {
+            throw new RuntimeException("Staff with ID " + vehicleId + " not found");
+        }
 
+        VehicleEntity vehicleEntity = optionalVehicle.get();
+
+        vehicleEntity.setVehicleCategory(dto.getVehicleCategory());
+        vehicleEntity.setStaff(mapping.toStaffEntity(dto.getStaffId()));
+        vehicleEntity.setVehicleRemarks(dto.getVehicleRemarks());
+        vehicleEntity.setVehicleStatus(dto.getVehicleStatus());
+        vehicleEntity.setVehicleFuelType(dto.getVehicleFuelType());
+        vehicleEntity.setVehicleLicensePlateNumber(dto.getVehicleLicensePlateNumber());
+
+
+        vehicleDao.save(vehicleEntity);
     }
 
     @Override
@@ -49,6 +66,7 @@ public class VehicleServiceImpl implements VehicleService {
 
     @Override
     public VehicleDto getVehicle(String id) {
+
         return null;
     }
 

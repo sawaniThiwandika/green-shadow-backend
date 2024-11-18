@@ -52,10 +52,18 @@ public class VehicleController {
 
     }
 
-    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void updateVehicle(@RequestBody() VehicleDto vehicleDto) {
-        System.out.println(vehicleDto.getVehicleCode());
-        vehicleService.updateVehicle(vehicleDto.getVehicleCode(), vehicleDto);
+    @PutMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public void updateVehicle(@RequestPart("vehicleCode") String vehicleCode,
+                              @RequestPart("vehicleLicensePlateNumber") String vehicleLicensePlateNumber,
+                              @RequestPart("vehicleCategory") String vehicleCategory,
+                              @RequestPart("vehicleFuelType") String vehicleFuelType,
+                              @RequestPart("vehicleStatus") String vehicleStatus,
+                              @RequestPart("staffId") String staffId,
+                              @RequestPart("vehicleRemarks") String vehicleRemarks) {
+        StaffDto staff = staffService.getStaff(staffId);
+        String generateVehicleCode = AppUtil.generateVehicleCode();
+        vehicleService.updateVehicle(vehicleCode,new VehicleDto(generateVehicleCode,vehicleLicensePlateNumber,vehicleCategory,vehicleFuelType,vehicleStatus,vehicleRemarks,staff));
+
 
     }
 
