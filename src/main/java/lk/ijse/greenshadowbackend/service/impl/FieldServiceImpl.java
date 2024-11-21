@@ -6,12 +6,14 @@ import lk.ijse.greenshadowbackend.dao.StaffDao;
 import lk.ijse.greenshadowbackend.dto.impl.FieldDto;
 import lk.ijse.greenshadowbackend.entity.impl.FieldEntity;
 import lk.ijse.greenshadowbackend.entity.impl.StaffEntity;
+import lk.ijse.greenshadowbackend.entity.impl.VehicleEntity;
 import lk.ijse.greenshadowbackend.service.FieldService;
 import lk.ijse.greenshadowbackend.util.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Transactional
@@ -31,8 +33,21 @@ public class FieldServiceImpl implements FieldService {
     }
 
     @Override
-    public void updateField(String FieldId, FieldDto dto) {
+    public void updateField(String fieldCode, FieldDto dto) {
+        Optional<FieldEntity> optionalField = fieldDao.findById(fieldCode);
+        if (optionalField.isEmpty()) {
+            throw new RuntimeException("Staff with ID " + fieldCode + " not found");
+        }
 
+        FieldEntity fieldEntity = optionalField.get();
+
+        fieldEntity.setFieldLocation(dto.getFieldLocation());
+        fieldEntity.setFieldImage1(dto.getFieldImage1());
+        fieldEntity.setFieldImage2(dto.getFieldImage2());
+        fieldEntity.setFieldSize(dto.getFieldSize());
+        fieldEntity.setFieldName(dto.getFieldName());
+
+        fieldDao.save(fieldEntity);
     }
 
     @Override
