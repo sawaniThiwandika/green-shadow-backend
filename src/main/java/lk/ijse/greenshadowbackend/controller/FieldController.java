@@ -81,4 +81,23 @@ public class FieldController {
         }
     }
 
+    @DeleteMapping(value = "/{fieldCode}",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> deleteField(@PathVariable("fieldCode") String fieldCode){
+        System.out.println("field code"+fieldCode);
+        if (fieldCode == null || fieldCode.trim().isEmpty()) {
+            return ResponseEntity.badRequest().body("FieldCode is missing");
+        }
+
+        try {
+            fieldService.deleteField(fieldCode);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+
+    }
+
 }

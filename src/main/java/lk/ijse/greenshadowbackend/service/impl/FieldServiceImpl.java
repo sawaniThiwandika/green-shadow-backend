@@ -51,8 +51,15 @@ public class FieldServiceImpl implements FieldService {
     }
 
     @Override
-    public void deleteField(String id) {
+    public void deleteField(String fieldCode) {
+        System.out.println("Field code "+fieldCode);
+        Optional<FieldEntity> field= fieldDao.findById(fieldCode);
 
+        if (!field.isPresent()) {
+            throw new  RuntimeException("Field with code " + fieldCode + " not found");
+        }
+
+        fieldDao.deleteById(fieldCode);
     }
 
     @Override
