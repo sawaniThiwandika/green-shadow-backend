@@ -20,8 +20,8 @@ public class FieldDto  implements SuperDto {
     private String fieldSize;
     private String fieldImage1;
     private String fieldImage2;
-    private List<CropFieldDetailsDto> cropFieldDetailsDtos;
-    private List<StaffFieldDetailsDto> staffFieldDetailsDtos;
-    private List<FieldEquipmentDetailsDto> fieldEquipmentDetailsDtos;
-    private List<FieldLogDetailsDto> fieldLogDetailsDtos;
+    private List<String> cropFieldDetailsDtos;
+    private List<String> staffFieldDetailsDtos;
+    private List<String> fieldEquipmentDetailsDtos;
+    private List<String> fieldLogDetailsDtos;
 }

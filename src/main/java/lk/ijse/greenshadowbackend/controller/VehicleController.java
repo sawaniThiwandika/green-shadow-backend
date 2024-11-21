@@ -15,14 +15,14 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/vehicle")
-@CrossOrigin(origins = "http://localhost:63342")
+@CrossOrigin
 public class VehicleController {
     @Autowired
     VehicleService vehicleService;
     @Autowired
     StaffService staffService;
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> saveVehicle(@RequestPart("vehicleCode") String vehicleCode,
+    public ResponseEntity<String> saveVehicle(@RequestPart("vehicleCode") String vehicleCode,
                                               @RequestPart("vehicleLicensePlateNumber") String vehicleLicensePlateNumber,
                                               @RequestPart("vehicleCategory") String vehicleCategory,
                                               @RequestPart("vehicleFuelType") String vehicleFuelType,
@@ -35,19 +35,21 @@ public class VehicleController {
             StaffDto staff = staffService.getStaff(staffId);
             String generateVehicleCode = AppUtil.generateVehicleCode();
 
-            vehicleService.saveVehicle(new VehicleDto(generateVehicleCode,vehicleLicensePlateNumber,vehicleCategory,vehicleFuelType,vehicleStatus,vehicleRemarks,staff));
+           vehicleService.saveVehicle(new VehicleDto(generateVehicleCode,vehicleLicensePlateNumber,vehicleCategory,vehicleFuelType,vehicleStatus,vehicleRemarks,staff));
             return new ResponseEntity<>("Staff created successfully", HttpStatus.CREATED);
 
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
+
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<VehicleDto> getVehicleList() {
-        List<VehicleDto> vehicleList = vehicleService.getVehicleList();
+       List<VehicleDto> vehicleList = vehicleService.getVehicleList();
         System.out.println("Vehicle list: "+vehicleList);
         return vehicleList;
+
 
 
     }

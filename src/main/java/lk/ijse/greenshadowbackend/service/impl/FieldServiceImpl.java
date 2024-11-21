@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Transactional
 @Service
@@ -20,15 +21,12 @@ public class FieldServiceImpl implements FieldService {
     private FieldDao fieldDao;
     @Autowired
     private Mapping mapping;
+
     @Override
     public void saveField(FieldDto dto) {
-        System.out.println("Field Dto: "+dto);
-        System.out.println(mapping.toFieldEntity(dto));
         FieldEntity save = fieldDao.save(mapping.toFieldEntity(dto));
         if (save == null){
-
             throw new RuntimeException("Note not saved!!");
-
         }
     }
 
@@ -49,7 +47,13 @@ public class FieldServiceImpl implements FieldService {
 
     @Override
     public List<FieldDto> getFieldList() {
-        return null;
+        List<FieldEntity> all = fieldDao.findAll();
+        if(all.isEmpty()){
+            new RuntimeException("Failed to load");
+        }
+        return all.stream()
+                .map(mapping::toFieldDto)
+                .collect(Collectors.toList());
     }
 
     @Override
