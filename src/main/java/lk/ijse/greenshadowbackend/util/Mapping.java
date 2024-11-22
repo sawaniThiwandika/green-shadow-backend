@@ -1,5 +1,6 @@
 package lk.ijse.greenshadowbackend.util;
 
+import lk.ijse.greenshadowbackend.dao.CropFieldDetailsDao;
 import lk.ijse.greenshadowbackend.dto.impl.*;
 import lk.ijse.greenshadowbackend.entity.impl.*;
 import org.modelmapper.ModelMapper;
@@ -42,6 +43,12 @@ public class Mapping {
     }
     public CropDto toCropDto(CropEntity cropEntity){
         return modelMapper.map(cropEntity, CropDto.class);
+    }
+    public CropFieldDetailsDto toCropFieldDetailDto(CropFieldDetailsEntity cropFieldEntity){
+        return modelMapper.map(cropFieldEntity, CropFieldDetailsDto.class);
+    }
+    public CropFieldDetailsEntity toCropFieldDetailEntity(CropFieldDetailsDto cropFieldDto){
+        return modelMapper.map(cropFieldDto, CropFieldDetailsEntity.class);
     }
     public EquipmentEntity toEquipmentEntity(EquipmentDto equipmentDto){
         return modelMapper.map(equipmentDto, EquipmentEntity.class);

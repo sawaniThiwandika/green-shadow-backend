@@ -2,15 +2,14 @@ package lk.ijse.greenshadowbackend.entity.impl;
 
 import jakarta.persistence.*;
 import lk.ijse.greenshadowbackend.entity.SuperEntity;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name="crop")
 public class CropEntity implements SuperEntity {
@@ -21,6 +20,7 @@ public class CropEntity implements SuperEntity {
     private String scientificName;
     private String category;
     private String season;
+    @Column(columnDefinition = "LONGTEXT")
     private String image;
     @OneToMany(mappedBy ="crop", cascade = CascadeType.ALL, fetch = FetchType.LAZY )
     private List<CropFieldDetailsEntity> cropFieldDetails;

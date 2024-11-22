@@ -2,9 +2,12 @@ package lk.ijse.greenshadowbackend.entity.impl;
 
 import jakarta.persistence.*;
 import lk.ijse.greenshadowbackend.entity.SuperEntity;
-import lombok.Data;
+import lombok.*;
 
-@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 @Entity
 @Table(name="crop_field_details")
 public class CropFieldDetailsEntity implements SuperEntity {
