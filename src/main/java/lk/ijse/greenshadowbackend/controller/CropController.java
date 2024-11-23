@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lk.ijse.greenshadowbackend.dto.impl.CropDto;
 import lk.ijse.greenshadowbackend.dto.impl.CropFieldDetailsDto;
 import lk.ijse.greenshadowbackend.service.CropService;
-import lk.ijse.greenshadowbackend.service.FieldService;
 import lk.ijse.greenshadowbackend.util.AppUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -66,6 +65,14 @@ public class CropController {
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<CropDto> getCropList(){
+        List<CropDto> cropList = cropService.getCropList();
+        System.out.println("crop list: "+cropList);
+        return cropList;
+
     }
 
 }

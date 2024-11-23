@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Transactional
 @Service
@@ -83,7 +84,15 @@ public class CropServiceImpl implements CropService {
 
     @Override
     public List<CropDto> getCropList() {
-        return null;
+
+        List<CropEntity> cropEntities = cropDao.findAll();
+        if(cropEntities.isEmpty()){
+            new RuntimeException("Failed to load");
+        }
+        return cropEntities.stream()
+                .map(mapping::toCropDto)
+                .collect(Collectors.toList());
+
     }
 
     @Override
