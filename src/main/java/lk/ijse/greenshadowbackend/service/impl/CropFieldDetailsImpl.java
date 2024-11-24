@@ -35,7 +35,7 @@ public class CropFieldDetailsImpl implements CropFieldDetailsService {
         ArrayList<CropFieldDetailsEntity> fieldsOfCropEntities = new ArrayList<>();
         for (CropFieldDetailsDto cropFieldDto:cropFieldDetailsDtoList) {
             Optional<CropEntity> cropById = cropDao.findById(cropFieldDto.getCropCode());
-            Optional<FieldEntity> fieldById = fieldDao.findById(cropFieldDto.getFieldId());
+            Optional<FieldEntity> fieldById = fieldDao.findById(cropFieldDto.getFieldCode());
             CropFieldDetailsEntity cropFieldDetailsEntity = new CropFieldDetailsEntity();
             cropFieldDetailsEntity.setCrop(cropById.get());
             cropFieldDetailsEntity.setField(fieldById.get());

@@ -70,8 +70,54 @@ public class CropController {
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<CropDto> getCropList(){
         List<CropDto> cropList = cropService.getCropList();
-        System.out.println("crop list: "+cropList);
+
+        for (int i=0;i<cropList.size();i++){
+            System.out.println("Field of crop : "+cropList.get(i).getCropFieldDetails());
+        }
+
+       // System.out.println("crop list -: "+cropList);
         return cropList;
+
+    }
+
+    @PutMapping(value = "/{cropCode}",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<Object> updateCrop(@PathVariable("cropCode") String cropCode,
+                                             @RequestPart("commonName") String commonName,
+                                             @RequestPart("scientificName") String scientificName,
+                                             @RequestPart("category") String category,
+                                             @RequestPart("season") String season,
+                                             @RequestPart("fieldDetails") String fieldDetails,
+                                             @RequestPart("file") MultipartFile file){
+
+
+        try {
+            System.out.println("common Name: " + commonName);
+
+            ObjectMapper objectMapper = new ObjectMapper();
+            ArrayList<String> fields = objectMapper.readValue(
+                    fieldDetails,
+                    objectMapper.getTypeFactory().constructCollectionType(ArrayList.class, String.class)
+            );
+            List<CropFieldDetailsDto> cropFieldList = cropService.getCropFieldList(cropCode, fields);
+
+            System.out.println("Fields: " + fields.get(0));
+            System.out.println("cropFieldsList : " + cropFieldList.get(0));
+
+            CropDto cropDto = new CropDto();
+
+            cropDto.setCode(cropCode);
+            cropDto.setName(commonName);
+            cropDto.setScientificName(scientificName);
+            cropDto.setCategory(category);
+            cropDto.setSeason(season);
+            cropDto.setImage(AppUtil.profilePicToBase64(file.getBytes()));
+            cropDto.setCropFieldDetails(cropFieldList);
+            cropService.updateCrop(cropCode,cropDto);
+
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
 
     }
 

@@ -18,6 +18,6 @@ public class CropFieldDetailsEntity implements SuperEntity {
     @JoinColumn(name = "cropCode", nullable = false)
     private CropEntity crop;
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "fieldId", nullable = false)
+    @JoinColumn(name = "fieldCode", nullable = false)
     private FieldEntity field;
 }

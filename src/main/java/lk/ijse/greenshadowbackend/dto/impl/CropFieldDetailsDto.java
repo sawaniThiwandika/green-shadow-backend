@@ -13,5 +13,5 @@ import lombok.NoArgsConstructor;
 public class CropFieldDetailsDto  implements SuperDto {
     private int id;
     private String cropCode;
-    private String fieldId;
+    private String fieldCode;
 }

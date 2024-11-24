@@ -10,6 +10,7 @@ import lk.ijse.greenshadowbackend.entity.impl.CropFieldDetailsEntity;
 import lk.ijse.greenshadowbackend.entity.impl.FieldEntity;
 import lk.ijse.greenshadowbackend.service.CropFieldDetailsService;
 import lk.ijse.greenshadowbackend.service.CropService;
+import lk.ijse.greenshadowbackend.util.AppUtil;
 import lk.ijse.greenshadowbackend.util.Mapping;
 import org.modelmapper.internal.bytebuddy.implementation.bytecode.Throw;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,8 +69,27 @@ public class CropServiceImpl implements CropService {
     }
 
     @Override
-    public void updateCrop(String CropId, CropDto dto) {
+    public void updateCrop(String cropId, CropDto dto) {
+        Optional<CropEntity> optionalCrop = cropDao.findById(cropId);
+        if (optionalCrop.isEmpty()) {
+            throw new RuntimeException("Crop with ID " + cropId + " not found");
+        }
 
+        CropEntity cropEntity = optionalCrop.get();
+        //cropEntity.setCropFieldDetails(cropFieldDetailsList);
+        cropEntity.setImage(dto.getImage());
+        cropEntity.setCategory(dto.getCategory());
+        cropEntity.setName(dto.getName());
+        cropEntity.setSeason(dto.getSeason());
+        cropEntity.setScientificName(dto.getScientificName());
+        List<CropFieldDetailsEntity> cropFieldDetailsList = cropFieldDetailsService.getCropFieldDetailsList(dto.getCropFieldDetails());
+        System.out.println("IM in update crop in service CRop Field Entity list"+ cropFieldDetailsList);
+        cropEntity.setCropFieldDetails(cropFieldDetailsList);
+        CropEntity save = cropDao.save(cropEntity);
+
+        if (save == null){
+            throw new RuntimeException("Crop not saved!!");
+        }
     }
 
     @Override
@@ -84,11 +104,12 @@ public class CropServiceImpl implements CropService {
 
     @Override
     public List<CropDto> getCropList() {
-
+        ArrayList<CropDto> cropDtos = new ArrayList<>();
         List<CropEntity> cropEntities = cropDao.findAll();
         if(cropEntities.isEmpty()){
             new RuntimeException("Failed to load");
         }
+
         return cropEntities.stream()
                 .map(mapping::toCropDto)
                 .collect(Collectors.toList());
