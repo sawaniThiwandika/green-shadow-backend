@@ -120,5 +120,23 @@ public class CropController {
         }
 
     }
+    @DeleteMapping(value = "/{cropCode}",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> deleteField(@PathVariable("cropCode") String cropCode){
+        System.out.println("crop code"+cropCode);
+        if (cropCode == null || cropCode.trim().isEmpty()) {
+            return ResponseEntity.badRequest().body("cropCode is missing");
+        }
+
+        try {
+            cropService.deleteCrop(cropCode);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+
+    }
 
 }

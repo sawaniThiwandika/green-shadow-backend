@@ -93,8 +93,15 @@ public class CropServiceImpl implements CropService {
     }
 
     @Override
-    public void deleteCrop(String id) {
+    public void deleteCrop(String cropCode) {
+        System.out.println("Field code "+cropCode);
+        Optional<CropEntity> field= cropDao.findById(cropCode);
 
+        if (!field.isPresent()) {
+            throw new  RuntimeException("Crop with code " + cropCode + " not found");
+        }
+
+        cropDao.deleteById(cropCode);
     }
 
     @Override
