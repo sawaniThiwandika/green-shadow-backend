@@ -12,6 +12,6 @@ import lombok.NoArgsConstructor;
 @Data
 public class StaffLogDetailsDto implements SuperDto {
     private int id;
-    private StaffEntity staffId;
-    private LogEntity logId;
+    private String staffId;
+    private String logId;
 }

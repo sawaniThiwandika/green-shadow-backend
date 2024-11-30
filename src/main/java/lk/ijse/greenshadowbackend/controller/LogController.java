@@ -2,10 +2,7 @@ package lk.ijse.greenshadowbackend.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lk.ijse.greenshadowbackend.dto.impl.*;
-import lk.ijse.greenshadowbackend.service.FieldService;
-import lk.ijse.greenshadowbackend.service.LogCropDetailsService;
-import lk.ijse.greenshadowbackend.service.LogFieldDetailsService;
-import lk.ijse.greenshadowbackend.service.LogService;
+import lk.ijse.greenshadowbackend.service.*;
 import lk.ijse.greenshadowbackend.util.AppUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,6 +22,8 @@ public class LogController {
     LogFieldDetailsService logFieldDetailsService;
     @Autowired
     LogCropDetailsService logCropDetailsService;
+    @Autowired
+    LogStaffDetailsService logStaffDetailsService;
     @Autowired
     LogService logService;
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
@@ -48,8 +47,13 @@ public class LogController {
                     crops,
                     objectMapper.getTypeFactory().constructCollectionType(ArrayList.class, String.class)
             );
+            ArrayList<String> staffList = objectMapper.readValue(
+                   staff,
+                    objectMapper.getTypeFactory().constructCollectionType(ArrayList.class, String.class)
+            );
             List<FieldLogDetailsDto> logFieldDtoList = logFieldDetailsService.getLogFieldDtoList(fieldList,logId);
             List<CropLogDetailsDto> logCropDDtoList= logCropDetailsService.getLogCropDtoList(cropList,logId);
+            List<StaffLogDetailsDto> logStaffDDtoList= logStaffDetailsService.getLogStaffDtoList(staffList,logId);
 
 
             LogDto logDto = new LogDto();
@@ -60,6 +64,7 @@ public class LogController {
             logDto.setObservedImage(AppUtil.profilePicToBase64(image.getBytes()));
             logDto.setFieldLogDetails(logFieldDtoList);
             logDto.setCropLogDetails(logCropDDtoList);
+            logDto.setStaffLogDetails(logStaffDDtoList);
 
 
 
