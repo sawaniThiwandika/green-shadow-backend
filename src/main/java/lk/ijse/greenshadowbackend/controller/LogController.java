@@ -1,11 +1,9 @@
 package lk.ijse.greenshadowbackend.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lk.ijse.greenshadowbackend.dto.impl.CropDto;
-import lk.ijse.greenshadowbackend.dto.impl.CropFieldDetailsDto;
-import lk.ijse.greenshadowbackend.dto.impl.FieldLogDetailsDto;
-import lk.ijse.greenshadowbackend.dto.impl.LogDto;
+import lk.ijse.greenshadowbackend.dto.impl.*;
 import lk.ijse.greenshadowbackend.service.FieldService;
+import lk.ijse.greenshadowbackend.service.LogCropDetailsService;
 import lk.ijse.greenshadowbackend.service.LogFieldDetailsService;
 import lk.ijse.greenshadowbackend.service.LogService;
 import lk.ijse.greenshadowbackend.util.AppUtil;
@@ -25,6 +23,8 @@ import java.util.List;
 public class LogController {
     @Autowired
     LogFieldDetailsService logFieldDetailsService;
+    @Autowired
+    LogCropDetailsService logCropDetailsService;
     @Autowired
     LogService logService;
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
@@ -49,6 +49,7 @@ public class LogController {
                     objectMapper.getTypeFactory().constructCollectionType(ArrayList.class, String.class)
             );
             List<FieldLogDetailsDto> logFieldDtoList = logFieldDetailsService.getLogFieldDtoList(fieldList,logId);
+            List<CropLogDetailsDto> logCropDDtoList= logCropDetailsService.getLogCropDtoList(cropList,logId);
 
 
             LogDto logDto = new LogDto();
@@ -58,6 +59,7 @@ public class LogController {
             logDto.setLogDetails(activity);
             logDto.setObservedImage(AppUtil.profilePicToBase64(image.getBytes()));
             logDto.setFieldLogDetails(logFieldDtoList);
+            logDto.setCropLogDetails(logCropDDtoList);
 
 
 
