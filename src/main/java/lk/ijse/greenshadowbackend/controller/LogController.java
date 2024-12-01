@@ -128,6 +128,26 @@ public class LogController {
         }
     }
 
+    @DeleteMapping(value = "/{logCode}",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> deleteLog(@PathVariable("logCode") String logCode){
+        System.out.println("Log code"+logCode);
+        if (logCode == null || logCode.trim().isEmpty()) {
+            return ResponseEntity.badRequest().body("LogCode is missing");
+        }
+
+        try {
+            logService.deleteLog(logCode);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+
+    }
+
+
 
 
 }

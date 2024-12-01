@@ -1,14 +1,9 @@
 package lk.ijse.greenshadowbackend.service.impl;
 
 import jakarta.transaction.Transactional;
-import lk.ijse.greenshadowbackend.dao.LogCropDetailsDao;
 import lk.ijse.greenshadowbackend.dao.LogDao;
-import lk.ijse.greenshadowbackend.dao.LogFieldDetailsDao;
-import lk.ijse.greenshadowbackend.dao.LogStaffDetailsDao;
 import lk.ijse.greenshadowbackend.dto.impl.CropDto;
 import lk.ijse.greenshadowbackend.dto.impl.LogDto;
-import lk.ijse.greenshadowbackend.entity.impl.CropEntity;
-import lk.ijse.greenshadowbackend.entity.impl.CropFieldDetailsEntity;
 import lk.ijse.greenshadowbackend.entity.impl.LogEntity;
 import lk.ijse.greenshadowbackend.service.LogCropDetailsService;
 import lk.ijse.greenshadowbackend.service.LogFieldDetailsService;
@@ -94,6 +89,14 @@ public class LogServiceImpl implements LogService {
 
     @Override
     public void deleteLog(String id) {
+        System.out.println("LocCode "+id);
+        Optional<LogEntity>log= logDao.findById(id);
+
+        if (!log.isPresent()) {
+            throw new  RuntimeException("log with code " + id + " not found");
+        }
+
+        logDao.deleteById(id);
 
     }
 
