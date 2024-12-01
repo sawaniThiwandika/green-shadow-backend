@@ -72,6 +72,62 @@ public class LogController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<LogDto> getLogList(){
+        List<LogDto> logList = logService.getLogList();
+        // System.out.println("crop list -: "+cropList);
+        return logList;
+
+    }
+
+    @PutMapping(value = "/{logCode}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+    public void updateLog(
+            @RequestPart("logDate") String date,
+            @RequestPart("activity") String activity,
+            @RequestPart("staff") String staff,
+            @RequestPart("crops") String crops,
+            @RequestPart("fields") String fields,
+            @RequestPart("image") MultipartFile image,
+            @PathVariable("logCode") String logId
+    ){
+
+
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            ArrayList<String> fieldList = objectMapper.readValue(
+                    fields,
+                    objectMapper.getTypeFactory().constructCollectionType(ArrayList.class, String.class)
+            );
+            ArrayList<String> cropList = objectMapper.readValue(
+                    crops,
+                    objectMapper.getTypeFactory().constructCollectionType(ArrayList.class, String.class)
+            );
+            ArrayList<String> staffList = objectMapper.readValue(
+                    staff,
+                    objectMapper.getTypeFactory().constructCollectionType(ArrayList.class, String.class)
+            );
+            List<FieldLogDetailsDto> logFieldDtoList = logFieldDetailsService.getLogFieldDtoList(fieldList,logId);
+            List<CropLogDetailsDto> logCropDDtoList= logCropDetailsService.getLogCropDtoList(cropList,logId);
+            List<StaffLogDetailsDto> logStaffDDtoList= logStaffDetailsService.getLogStaffDtoList(staffList,logId);
+
+
+            LogDto logDto = new LogDto();
+
+            logDto.setLogCode(logId);
+            logDto.setLogDate(date);
+            logDto.setLogDetails(activity);
+            logDto.setObservedImage(AppUtil.profilePicToBase64(image.getBytes()));
+            logDto.setFieldLogDetails(logFieldDtoList);
+            logDto.setCropLogDetails(logCropDDtoList);
+            logDto.setStaffLogDetails(logStaffDDtoList);
+            //System.out.println("Log dto in Log Controller "+ logDto);
+            logService.updateLog(logId,logDto);
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
 
 
 }

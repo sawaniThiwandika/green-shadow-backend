@@ -5,17 +5,23 @@ import lk.ijse.greenshadowbackend.dao.LogCropDetailsDao;
 import lk.ijse.greenshadowbackend.dao.LogDao;
 import lk.ijse.greenshadowbackend.dao.LogFieldDetailsDao;
 import lk.ijse.greenshadowbackend.dao.LogStaffDetailsDao;
+import lk.ijse.greenshadowbackend.dto.impl.CropDto;
 import lk.ijse.greenshadowbackend.dto.impl.LogDto;
+import lk.ijse.greenshadowbackend.entity.impl.CropEntity;
+import lk.ijse.greenshadowbackend.entity.impl.CropFieldDetailsEntity;
 import lk.ijse.greenshadowbackend.entity.impl.LogEntity;
 import lk.ijse.greenshadowbackend.service.LogCropDetailsService;
 import lk.ijse.greenshadowbackend.service.LogFieldDetailsService;
 import lk.ijse.greenshadowbackend.service.LogService;
 import lk.ijse.greenshadowbackend.service.LogStaffDetailsService;
+import lk.ijse.greenshadowbackend.util.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -28,6 +34,8 @@ public class LogServiceImpl implements LogService {
     LogCropDetailsService logCropDetailsService;
     @Autowired
     LogStaffDetailsService logStaffDetailsService;
+    @Autowired
+    Mapping mapping;
 
     @Override
     public void saveLog(LogDto dto) {
@@ -63,7 +71,24 @@ public class LogServiceImpl implements LogService {
     }
 
     @Override
-    public void updateLog(String LogId, LogDto dto) {
+    public void updateLog(String logId, LogDto dto) {
+        Optional<LogEntity> optionalLog= logDao.findById(logId);
+        if (optionalLog.isEmpty()) {
+            throw new RuntimeException("Log with ID " + logId + " not found");
+        }
+
+        LogEntity logEntity = optionalLog.get();
+        //cropEntity.setCropFieldDetails(cropFieldDetailsList);
+        logEntity.setLogDate(dto.getLogDate());
+        logEntity.setLogDetails(dto.getLogDetails());
+        logEntity.setObservedImage(dto.getObservedImage());
+
+
+        LogEntity save = logDao.save(logEntity);
+
+        if (logDao.save(logEntity) == null){
+            throw new RuntimeException("Log not update!!");
+        }
 
     }
 
@@ -79,7 +104,16 @@ public class LogServiceImpl implements LogService {
 
     @Override
     public List<LogDto> getLogList() {
-        return null;
+
+        ArrayList<CropDto> logDtos = new ArrayList<>();
+        List<LogEntity> logEntities = logDao.findAll();
+        if(logEntities.isEmpty()){
+            new RuntimeException("Failed to load");
+        }
+
+        return logEntities.stream()
+                .map(mapping::toLogDto)
+                .collect(Collectors.toList());
     }
 
     @Override
