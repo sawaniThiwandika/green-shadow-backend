@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -64,7 +65,23 @@ public class FieldServiceImpl implements FieldService {
 
     @Override
     public FieldDto getField(String id) {
-        return null;
+        Optional<FieldEntity> byId = fieldDao.findById(id);
+
+        // Check if the field exists and map it to FieldDto if present
+        return byId.map(this::mapToFieldDto) // Convert FieldEntity to FieldDto
+                .orElseThrow(() -> new NoSuchElementException("Field not found for ID: " + id));
+    }
+
+    // Utility method to map FieldEntity to FieldDto
+    private FieldDto mapToFieldDto(FieldEntity fieldEntity) {
+        FieldDto fieldDto = new FieldDto();
+        fieldDto.setFieldCode(fieldEntity.getFieldCode());
+        fieldDto.setFieldName(fieldEntity.getFieldName());
+        fieldDto.setFieldLocation(fieldEntity.getFieldLocation());
+        fieldDto.setFieldSize(fieldEntity.getFieldSize());
+        fieldDto.setFieldImage1(fieldEntity.getFieldImage1());
+        fieldDto.setFieldImage2(fieldEntity.getFieldImage2());
+        return fieldDto;
     }
 
     @Override

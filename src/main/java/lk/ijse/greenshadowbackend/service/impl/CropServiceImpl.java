@@ -106,7 +106,7 @@ public class CropServiceImpl implements CropService {
 
     @Override
     public CropDto getCrop(String id) {
-        return null;
+        return mapping.toCropDto(cropDao.findById(id).get());
     }
 
     @Override

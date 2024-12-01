@@ -62,6 +62,30 @@ public class Mapping {
     public LogDto toLogDto(LogEntity logEntity){
         return modelMapper.map(logEntity, LogDto.class);
     }
+
+
+    public FieldLogDetailsEntity toLogFieldDetailsEntity(FieldLogDetailsDto fieldLogDetailsDto){
+        return modelMapper.map(fieldLogDetailsDto, FieldLogDetailsEntity.class);
+    }
+    public FieldLogDetailsDto toFieldLogDetailsDto(FieldLogDetailsEntity fieldLogDetailsEntity){
+        return modelMapper.map(fieldLogDetailsEntity,FieldLogDetailsDto.class);
+    }
+
+    public CropLogDetailsEntity toLogCropDetailsEntity(CropLogDetailsDto cropLogDetailsDto){
+        return modelMapper.map(cropLogDetailsDto, CropLogDetailsEntity.class);
+    }
+    public CropLogDetailsDto toCropLogDetailsDto(CropLogDetailsEntity cropLogDetailsEntity){
+        return modelMapper.map(cropLogDetailsEntity,CropLogDetailsDto.class);
+    }
+
+    public StaffLogDetailsEntity toLogStaffDetailsEntity(StaffLogDetailsDto staffLogDetailsDto){
+        return modelMapper.map(staffLogDetailsDto, StaffLogDetailsEntity.class);
+    }
+    public StaffLogDetailsDto toStaffLogDetailsDto(StaffLogDetailsEntity staffLogDetailsEntity){
+        return modelMapper.map(staffLogDetailsEntity,StaffLogDetailsDto.class);
+    }
+
+
     public List<StaffDto> toStaffDtoList(List<StaffEntity> list){
         System.out.println(list.size());
         return modelMapper.map(list,new TypeToken<List<StaffDto>>(){}.getType());

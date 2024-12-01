@@ -13,9 +13,10 @@ public class LogEntity {
     private String logCode;
     private String logDate;
     private String logDetails;
+    @Column(columnDefinition = "LONGTEXT")
     private String observedImage;
     @OneToMany(mappedBy ="log", cascade = CascadeType.ALL, fetch = FetchType.LAZY )
-    private List<StaffLogDetailsEntity> staffLogDetails;
+    private List<StaffLogDetailsEntity> staffLogDetailsEntities;
     @OneToMany(mappedBy ="log", cascade = CascadeType.ALL, fetch = FetchType.LAZY )
     private List<CropLogDetailsEntity> cropLogDetailsEntities;
     @OneToMany(mappedBy ="log", cascade = CascadeType.ALL, fetch = FetchType.LAZY )

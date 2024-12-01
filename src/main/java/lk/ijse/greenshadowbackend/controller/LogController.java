@@ -65,9 +65,8 @@ public class LogController {
             logDto.setFieldLogDetails(logFieldDtoList);
             logDto.setCropLogDetails(logCropDDtoList);
             logDto.setStaffLogDetails(logStaffDDtoList);
-
-
-
+            //System.out.println("Log dto in Log Controller "+ logDto);
+            logService.saveLog(logDto);
             return new ResponseEntity<>(HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
