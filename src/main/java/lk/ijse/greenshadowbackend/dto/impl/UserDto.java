@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class UserDto implements SuperDto {
+public class UserDto implements UserStatus {
     private String userEmail;
     private String userPassword;
     private UserRole userRole;

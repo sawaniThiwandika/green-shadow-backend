@@ -17,9 +17,15 @@ public class Mapping {
     public UserEntity toUserEntity(UserDto userDto){
         return modelMapper.map(userDto, UserEntity.class);
     }
-    public UserDto toUserDtO(UserEntity userEntity){
+    public UserDto toUserDto(UserEntity userEntity){
         return modelMapper.map(userEntity, UserDto.class);
     }
+    public List<UserDto> toUserDtoList(List<UserEntity> list){
+        System.out.println(list.size());
+        return modelMapper.map(list,new TypeToken<List<UserDto>>(){}.getType());
+    }
+
+
     public VehicleEntity toVehicleEntity(VehicleDto vehicleDto){
         return modelMapper.map(vehicleDto, VehicleEntity.class);
     }
@@ -122,5 +128,7 @@ public class Mapping {
     public List<VehicleEntity> toVehicleEntityList(List<VehicleDto> list){
         return modelMapper.map(list,new TypeToken<List<VehicleEntity>>(){}.getType());
     }
+
+
 
 }
