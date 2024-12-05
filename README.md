@@ -18,7 +18,7 @@ With features such as field and crop management, staff and vehicle assignments, 
 - **MySQL**: A relational database used to store data related to fields, crops, equipment, staff, vehicles, and logs.
 
 ### **Frontend**
-Frontend code-  https://github.com/sawaniThiwandika/green-shadow-frontend.git
+  Frontend code-  https://github.com/sawaniThiwandika/green-shadow-frontend.git
 - **HTML**: The basic structure of the web pages, used to display the content and UI elements.
 - **CSS3**: Used for styling the application and ensuring it is visually appealing.
 - **Bootstrap 4**: A responsive frontend framework for creating a modern, mobile-friendly, and user-friendly interface.
