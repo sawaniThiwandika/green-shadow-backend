@@ -33,12 +33,10 @@ public class AuthUserController {
     ) {
 
         try {
-
-
             var buildUserDto = new UserDto();
             buildUserDto.setUserEmail(email);
             buildUserDto.setUserPassword(passwordEncoder.encode(password));
-
+            System.out.println("User Role: "+ role);
             buildUserDto.setUserRole(UserRole.valueOf(role));
             return ResponseEntity.ok(authService.signUp(buildUserDto));
 //            Todo: Chane with auth user service
@@ -56,6 +54,7 @@ public class AuthUserController {
 
     @PostMapping(value = "/signIn",consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<JWTAuthResponse> signIn(@RequestBody() SignIn signIn){
+
         return ResponseEntity.ok(authService.signIn(signIn));
     }
 

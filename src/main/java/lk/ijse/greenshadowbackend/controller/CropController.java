@@ -68,6 +68,7 @@ public class CropController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
+
     @PreAuthorize("hasAnyRole('MANAGER','SCIENTIST')")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<CropDto> getCropList(){

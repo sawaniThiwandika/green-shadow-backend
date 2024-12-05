@@ -78,5 +78,6 @@ public class UserServiceImpl implements UserService {
     public UserDetailsService userDetailService() {
         return username ->
                 userDao.findByUserEmail(username).orElseThrow(()-> new UserNotFoundException("USER NOT FOUND!!"));
+
     }
 }

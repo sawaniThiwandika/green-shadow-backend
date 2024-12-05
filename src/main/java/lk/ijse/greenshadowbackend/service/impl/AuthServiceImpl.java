@@ -12,6 +12,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
@@ -49,4 +52,6 @@ public class AuthServiceImpl implements AuthService {
         String refreshToken = jwtService.refreshToken(findUser);
         return JWTAuthResponse.builder().token(refreshToken).build();
     }
+
+
 }
