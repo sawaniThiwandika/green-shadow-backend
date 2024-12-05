@@ -24,6 +24,7 @@ public class CropController {
 
     @Autowired
     CropService cropService;
+    @PreAuthorize("hasAnyRole('MANAGER','SCIENTIST')")
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> saveCrop(
@@ -67,7 +68,7 @@ public class CropController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
-
+    @PreAuthorize("hasAnyRole('MANAGER','SCIENTIST')")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<CropDto> getCropList(){
         List<CropDto> cropList = cropService.getCropList();
@@ -80,7 +81,7 @@ public class CropController {
         return cropList;
 
     }
-
+    @PreAuthorize("hasAnyRole('MANAGER','SCIENTIST')")
     @PutMapping(value = "/{cropCode}",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Object> updateCrop(@PathVariable("cropCode") String cropCode,
                                              @RequestPart("commonName") String commonName,
@@ -121,6 +122,7 @@ public class CropController {
         }
 
     }
+    @PreAuthorize("hasAnyRole('MANAGER','SCIENTIST')")
     @DeleteMapping(value = "/{cropCode}",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> deleteField(@PathVariable("cropCode") String cropCode){
         System.out.println("crop code"+cropCode);

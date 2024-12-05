@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ import java.util.List;
 public class StaffController {
     @Autowired
     StaffService staffService;
-
+    @PreAuthorize("hasAnyRole('MANAGER','ADMINISTRATIVE')")
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> saveOrUpdateStaff(@RequestBody StaffDto staffDto) {
         try {
@@ -35,7 +36,7 @@ public class StaffController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
-
+    @PreAuthorize("hasAnyRole('MANAGER','ADMINISTRATIVE')")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<StaffDto> getItemList() {
         List<StaffDto> staffList = staffService.getStaffList();
@@ -43,12 +44,14 @@ public class StaffController {
 
 
     }
+    @PreAuthorize("hasAnyRole('MANAGER','ADMINISTRATIVE')")
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public void updateStaff(@RequestBody() StaffDto staffDto){
         System.out.println(staffDto.getId());
         staffService.updateStaff(staffDto.getId(),staffDto);
 
     }
+    @PreAuthorize("hasAnyRole('MANAGER','ADMINISTRATIVE')")
     @DeleteMapping(value = "/{staffId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> deleteCustomer(@PathVariable("staffId") String staffId){
         if (staffId == null || staffId.trim().isEmpty()) {

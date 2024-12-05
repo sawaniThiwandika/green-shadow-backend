@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -26,6 +27,7 @@ public class LogController {
     LogStaffDetailsService logStaffDetailsService;
     @Autowired
     LogService logService;
+    @PreAuthorize("hasAnyRole('MANAGER','SCIENTIST')")
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> saveLog (
             @RequestPart("logDate") String date,
@@ -72,6 +74,7 @@ public class LogController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
+    @PreAuthorize("hasAnyRole('MANAGER','SCIENTIST')")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<LogDto> getLogList(){
         List<LogDto> logList = logService.getLogList();
@@ -79,7 +82,7 @@ public class LogController {
         return logList;
 
     }
-
+    @PreAuthorize("hasAnyRole('MANAGER','SCIENTIST')")
     @PutMapping(value = "/{logCode}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
     public void updateLog(
             @RequestPart("logDate") String date,
@@ -127,7 +130,7 @@ public class LogController {
             System.out.println(e.getMessage());
         }
     }
-
+    @PreAuthorize("hasAnyRole('MANAGER','SCIENTIST')")
     @DeleteMapping(value = "/{logCode}",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> deleteLog(@PathVariable("logCode") String logCode){
         System.out.println("Log code"+logCode);
