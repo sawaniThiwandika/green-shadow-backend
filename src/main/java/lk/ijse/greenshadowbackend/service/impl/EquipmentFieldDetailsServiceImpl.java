@@ -31,7 +31,7 @@ public class EquipmentFieldDetailsServiceImpl implements EquipmentFieldDetailsSe
         ArrayList<FieldEquipmentDetailsDto> equipmentFieldDetailsDtos = new ArrayList<>();
         for (String fieldId : fieldList
         ) {
-            equipmentFieldDetailsDtos.add(new FieldEquipmentDetailsDto(1, eId, fieldId));
+            equipmentFieldDetailsDtos.add(new FieldEquipmentDetailsDto(1, fieldId,eId));
         }
         return equipmentFieldDetailsDtos;
     }

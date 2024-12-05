@@ -48,6 +48,7 @@ public class EquipmentStaffDetailsServiceImpl implements EquipmentStaffDetailsSe
                 StaffDto staff = staffService.getStaff(dto.getStaffId());
                 StaffEquipmentDetailsEntity staffEquipmentDetailsEntity = new StaffEquipmentDetailsEntity();
                 staffEquipmentDetailsEntity.setEquipment(equipmentEntity);
+                staffEquipmentDetailsEntity.setStaff(mapping.toStaffEntity(staff));
                 System.out.println("staff entity in log " +mapping.toStaffEntity(staff));
                 equipmentStaffDetailsDao.save(staffEquipmentDetailsEntity);
             }
